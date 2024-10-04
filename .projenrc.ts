@@ -5,6 +5,7 @@ const project = new CdklabsTypeScriptProject({
   projenrcTs: true,
   name: '@cdklabs/eslint-plugin',
   description: 'eslint rules published by the CDK team. Contains CDK rules and others.',
+  majorVersion: 1,
   repository: 'https://github.com/cdklabs/eslint-rules',
   authorName: 'Amazon Web Services',
   authorUrl: 'https://aws.amazon.com',
