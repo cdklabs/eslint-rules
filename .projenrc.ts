@@ -1,7 +1,7 @@
-import { typescript } from "projen";
+import { typescript } from 'projen';
 const project = new typescript.TypeScriptProject({
-  defaultReleaseBranch: "main",
-  name: "eslint-rules",
+  defaultReleaseBranch: 'main',
+  name: 'eslint-rules',
   projenrcTs: true,
   release: false,
 
