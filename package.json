@@ -1,7 +1,13 @@
 {
-  "name": "eslint-rules",
+  "name": "@cdklabs/eslint-plugin",
+  "description": "eslint rules published by the CDK team. Contains CDK rules and others.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cdklabs/eslint-rules"
+  },
   "scripts": {
     "build": "npx projen build",
+    "bump": "npx projen bump",
     "clobber": "npx projen clobber",
     "compile": "npx projen compile",
     "default": "npx projen default",
@@ -11,17 +17,32 @@
     "post-compile": "npx projen post-compile",
     "post-upgrade": "npx projen post-upgrade",
     "pre-compile": "npx projen pre-compile",
+    "release": "npx projen release",
     "test": "npx projen test",
     "test:watch": "npx projen test:watch",
+    "unbump": "npx projen unbump",
     "upgrade": "npx projen upgrade",
+    "upgrade-cdklabs-projen-project-types": "npx projen upgrade-cdklabs-projen-project-types",
+    "upgrade-dev-deps": "npx projen upgrade-dev-deps",
     "watch": "npx projen watch",
     "projen": "npx projen"
   },
+  "author": {
+    "name": "Amazon Web Services",
+    "email": "aws-cdk-dev@amazon.com",
+    "url": "https://aws.amazon.com",
+    "organization": true
+  },
   "devDependencies": {
+    "@types/eslint": "^8",
+    "@types/estree": "^1.0.6",
+    "@types/fs-extra": "^11.0.4",
     "@types/jest": "^29.5.13",
-    "@types/node": "^22.7.4",
+    "@types/node": "^18",
     "@typescript-eslint/eslint-plugin": "^7",
     "@typescript-eslint/parser": "^7",
+    "cdklabs-projen-project-types": "^0.1.205",
+    "commit-and-tag-version": "^12",
     "constructs": "^10.0.0",
     "eslint": "^8",
     "eslint-import-resolver-typescript": "^3.6.3",
@@ -32,6 +53,16 @@
     "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.2"
+  },
+  "peerDependencies": {
+    "@typescript-eslint/parser": "^7.18.0",
+    "eslint": ">=6 <9"
+  },
+  "dependencies": {
+    "fs-extra": "^11.2.0"
+  },
+  "engines": {
+    "node": ">= 18.12.0"
   },
   "main": "lib/index.js",
   "license": "Apache-2.0",
