@@ -1,4 +1,4 @@
-import { CdklabsTypeScriptProject } from 'cdklabs-projen-project-types';
+import { AutoMerge, CdklabsTypeScriptProject } from 'cdklabs-projen-project-types';
 
 const project = new CdklabsTypeScriptProject({
   private: false,
@@ -56,5 +56,7 @@ const project = new CdklabsTypeScriptProject({
 // `test/fixtures` directory.
 project.gitignore.addPatterns('!test/rules/fixtures/node_modules/');
 project.gitignore.addPatterns('.test-output/');
+
+new AutoMerge(project.github!);
 
 project.synth();

@@ -52,4 +52,5 @@ junit.xml
 !/.github/workflows/upgrade-dev-deps-main.yml
 !test/rules/fixtures/node_modules/
 .test-output/
+!/.github/workflows/auto-merge.yml
 !/.projenrc.ts
