@@ -1,0 +1,1 @@
+throw new ValidationError('<insert error message>', this);
