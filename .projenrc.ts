@@ -11,6 +11,7 @@ const project = new CdklabsTypeScriptProject({
   authorUrl: 'https://aws.amazon.com',
   authorOrganization: true,
   defaultReleaseBranch: 'main',
+  enablePRAutoMerge: true,
 
   devDeps: [
     '@types/eslint@^8',
