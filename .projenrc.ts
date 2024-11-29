@@ -14,10 +14,8 @@ const project = new CdklabsTypeScriptProject({
   enablePRAutoMerge: true,
 
   devDeps: [
-    '@types/eslint@^8',
     '@types/fs-extra',
     '@types/estree',
-    'eslint@^8',
   ],
   deps: [
     'fs-extra',
@@ -52,6 +50,9 @@ const project = new CdklabsTypeScriptProject({
     ignorePatterns: ['test/rules/fixtures/**/*.ts'],
   },
 });
+
+// Declare different eslint deps than upstream projen
+project.addDevDeps('@types/eslint@^8', 'eslint@^8');
 
 // Only ignore node_modules at the root, we also have one inside the
 // `test/fixtures` directory.

@@ -61,7 +61,7 @@
     },
     {
       "name": "eslint",
-      "version": "^9",
+      "version": "^8",
       "type": "build"
     },
     {
