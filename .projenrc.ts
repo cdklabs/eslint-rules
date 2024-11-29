@@ -11,6 +11,7 @@ const project = new CdklabsTypeScriptProject({
   authorUrl: 'https://aws.amazon.com',
   authorOrganization: true,
   defaultReleaseBranch: 'main',
+  enablePRAutoMerge: true,
 
   devDeps: [
     '@types/eslint@^8',
@@ -56,7 +57,5 @@ const project = new CdklabsTypeScriptProject({
 // `test/fixtures` directory.
 project.gitignore.addPatterns('!test/rules/fixtures/node_modules/');
 project.gitignore.addPatterns('.test-output/');
-
-// new AutoMerge(project.github!);
 
 project.synth();
