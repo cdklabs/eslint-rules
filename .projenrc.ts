@@ -58,6 +58,4 @@ const project = new CdklabsTypeScriptProject({
 project.gitignore.addPatterns('!test/rules/fixtures/node_modules/');
 project.gitignore.addPatterns('.test-output/');
 
-// new AutoMerge(project.github!);
-
 project.synth();
