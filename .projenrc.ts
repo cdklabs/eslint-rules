@@ -1,4 +1,4 @@
-import { AutoMerge, CdklabsTypeScriptProject } from 'cdklabs-projen-project-types';
+import { CdklabsTypeScriptProject } from 'cdklabs-projen-project-types';
 
 const project = new CdklabsTypeScriptProject({
   private: false,
@@ -11,12 +11,11 @@ const project = new CdklabsTypeScriptProject({
   authorUrl: 'https://aws.amazon.com',
   authorOrganization: true,
   defaultReleaseBranch: 'main',
+  enablePRAutoMerge: true,
 
   devDeps: [
-    '@types/eslint@^8',
     '@types/fs-extra',
     '@types/estree',
-    'eslint@^8',
   ],
   deps: [
     'fs-extra',
@@ -52,11 +51,12 @@ const project = new CdklabsTypeScriptProject({
   },
 });
 
+// Declare different eslint deps than upstream projen
+project.addDevDeps('@types/eslint@^8', 'eslint@^8');
+
 // Only ignore node_modules at the root, we also have one inside the
 // `test/fixtures` directory.
 project.gitignore.addPatterns('!test/rules/fixtures/node_modules/');
 project.gitignore.addPatterns('.test-output/');
-
-new AutoMerge(project.github!);
 
 project.synth();

@@ -38,7 +38,6 @@ junit.xml
 /dist/changelog.md
 /dist/version.txt
 !/.github/workflows/release.yml
-!/.mergify.yml
 !/.github/pull_request_template.md
 !/test/
 !/tsconfig.json
@@ -47,10 +46,10 @@ junit.xml
 /lib
 /dist/
 !/.eslintrc.json
+!/.github/workflows/auto-queue.yml
 !/.github/workflows/upgrade-cdklabs-projen-project-types-main.yml
 !/.github/workflows/upgrade-main.yml
 !/.github/workflows/upgrade-dev-deps-main.yml
 !test/rules/fixtures/node_modules/
 .test-output/
-!/.github/workflows/auto-merge.yml
 !/.projenrc.ts

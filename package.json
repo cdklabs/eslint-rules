@@ -34,14 +34,15 @@
     "organization": true
   },
   "devDependencies": {
+    "@stylistic/eslint-plugin": "^2",
     "@types/eslint": "^8",
     "@types/estree": "^1.0.6",
     "@types/fs-extra": "^11.0.4",
     "@types/jest": "^29.5.14",
     "@types/node": "^18",
-    "@typescript-eslint/eslint-plugin": "^7",
-    "@typescript-eslint/parser": "^7",
-    "cdklabs-projen-project-types": "^0.1.205",
+    "@typescript-eslint/eslint-plugin": "^8",
+    "@typescript-eslint/parser": "^8",
+    "cdklabs-projen-project-types": "^0.1.211",
     "commit-and-tag-version": "^12",
     "constructs": "^10.0.0",
     "eslint": "^8",
@@ -49,7 +50,7 @@
     "eslint-plugin-import": "^2.31.0",
     "jest": "^29.7.0",
     "jest-junit": "^15",
-    "projen": "^0.88.0",
+    "projen": "^0.90.5",
     "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.2"
