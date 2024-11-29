@@ -15,7 +15,12 @@ const fixturesRoot = path.join(__dirname, 'fixtures');
 fs.readdirSync(fixturesRoot).filter(f => f !== 'lib').filter(f => fs.lstatSync(path.join(fixturesRoot, f)).isDirectory()).forEach(d => {
   describe(d, () => {
     const fixturesDir = path.join(fixturesRoot, d);
-    const fixtureFiles = fs.readdirSync(fixturesDir).filter(f => f.endsWith('.ts') && !f.endsWith('.expected.ts') && f !== 'index.ts');
+    const fixtureFiles = fs.readdirSync(fixturesDir).filter(f =>
+      f.endsWith('.ts')
+      && !f.endsWith('.expected.ts')
+      && !f.endsWith('.suggested.ts')
+      && f !== 'index.ts',
+    );
 
     if (!fixtureFiles.length) {
       return;
@@ -43,15 +48,25 @@ fs.readdirSync(fixturesRoot).filter(f => f !== 'lib').filter(f => fs.lstatSync(p
       it(f, async () => {
         const originalFilePath = path.join(fixturesDir, f);
         const expectedFixedFilePath = path.join(fixturesDir, `${path.basename(f, '.ts')}.expected.ts`);
+        const suggestedFixFilePath = path.join(fixturesDir, `${path.basename(f, '.ts')}.suggested.ts`);
         const expectedErrorFilepath = path.join(fixturesDir, `${path.basename(f, '.ts')}.error.txt`);
         const fix = fs.existsSync(expectedFixedFilePath);
+        const suggestion = fs.existsSync(suggestedFixFilePath);
         const checkErrors = fs.existsSync(expectedErrorFilepath);
-        if (fix && checkErrors) {
-          fail(`Expected only a fixed file or an expected error message file. Both ${expectedFixedFilePath} and ${expectedErrorFilepath} are present.`);
+        if (fix && checkErrors && suggestion) {
+          fail(`Expected only a fixed file or an expected error message file. Multiple of ${expectedFixedFilePath}, ${suggestedFixFilePath} and ${expectedErrorFilepath} are present.`);
         } else if (fix) {
           const actualFile = await lintAndFix(originalFilePath, outputDir);
           const actual = await fs.readFile(actualFile, { encoding: 'utf8' });
           const expected = await fs.readFile(expectedFixedFilePath, { encoding: 'utf8' });
+          if (actual !== expected) {
+            fail(`Linted file did not match expectations.\n--------- Expected ----------\n${expected}\n---------- Actual ----------\n${actual}`);
+          }
+          return;
+        } else if (suggestion) {
+          const actualFile = await lintAndApplySuggestion(originalFilePath, outputDir);
+          const actual = await fs.readFile(actualFile, { encoding: 'utf8' });
+          const expected = await fs.readFile(suggestedFixFilePath, { encoding: 'utf8' });
           if (actual !== expected) {
             fail(`Linted file did not match expectations.\n--------- Expected ----------\n${expected}\n---------- Actual ----------\n${actual}`);
           }
@@ -85,6 +100,25 @@ async function lintAndFix(file: string, outputDir: string) {
       r.filePath = newPath;
       return r;
     }));
+  } else {
+    // If there are no fixes, copy the input file as output
+    await fs.copyFile(file, newPath);
+  }
+  return newPath;
+}
+
+async function lintAndApplySuggestion(file: string, outputDir: string) {
+  const newPath = path.join(outputDir, path.basename(file));
+  let result = await linter.lintFiles(file);
+  const hasSuggestions = result.find(r => r.messages.find(m => m.suggestions?.length)) !== undefined;
+  if (hasSuggestions) {
+    for (const r of result) {
+      const suggestion = r.messages.find(m => m.suggestions?.length)?.suggestions?.[0];
+      if (suggestion && r.source) {
+        const output = r.source.slice(0, suggestion.fix.range[0]) + suggestion.fix.text + r.source.slice(suggestion.fix.range[1]);
+        await fs.writeFile(newPath, output, { encoding: 'utf8' });
+      }
+    }
   } else {
     // If there are no fixes, copy the input file as output
     await fs.copyFile(file, newPath);

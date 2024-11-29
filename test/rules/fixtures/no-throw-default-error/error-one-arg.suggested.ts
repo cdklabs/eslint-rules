@@ -1,0 +1,1 @@
+throw new ValidationError('My error', this);

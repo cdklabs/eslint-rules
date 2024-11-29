@@ -1,0 +1,1 @@
+Expected a non-default error object to be thrown.
