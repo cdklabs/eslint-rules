@@ -19,6 +19,24 @@ Eslint plugin for the CDK repository. Contains rules that need to be applied spe
 
 * `consider-promise-all`: when using `Promise.all()`, attest that there is no unbounded parallelism.
 
+* `no-throw-default-error`: Forbid throwing the default JavaScript error type. Instead a custom typed error should be thrown.
+
+## How to use these rules
+
+Import the plugin and declare rules with the `@cdklabs` prefix:
+
+```js
+module.exports = {
+  plugins: [
+    // ... other plugins
+    '@cdklabs',
+  ],
+  rules: {
+    '@cdklabs/no-throw-default-error': [ 'error' ],
+  }
+}
+```
+
 ## How to add new rules
 
 * Make a new file in `lib/rules`. It should export one function called `create`. The
