@@ -21,6 +21,9 @@ Eslint plugin for the CDK repository. Contains rules that need to be applied spe
 
 * `no-throw-default-error`: Forbid throwing the default JavaScript error type. Instead a custom typed error should be thrown.
 
+* `no-this-in-static`: Forbid the use of the keywords `this` and `super` in 
+  static methods.
+
 ## How to use these rules
 
 Import the plugin and declare rules with the `@cdklabs` prefix:
