@@ -12,4 +12,5 @@ export const rules = {
   'no-invalid-path': require('./rules/no-invalid-path'),
   'no-throw-default-error': require('./rules/no-throw-default-error'),
   'promiseall-no-unbounded-parallelism': require('./rules/promiseall-no-unbounded-parallelism'),
+  'no-this-in-static': require('./rules/no-this-in-static'),
 };
