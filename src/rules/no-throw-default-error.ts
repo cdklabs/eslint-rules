@@ -5,9 +5,14 @@ export const meta = {
   hasSuggestions: true,
 };
 
+// list of paths that should trigger the toolkit error suggestions
+const toolkitErrorPaths = ['packages/aws-cdk/', 'packages/@aws-cdk/toolkit/'];
+
 export function create(context: Rule.RuleContext): Rule.NodeListener {
   const fileName = context.filename;
-  const isCliFile = fileName.includes('packages/aws-cdk/');
+  const isToolkitFile = toolkitErrorPaths.some((path) =>
+    fileName.includes(path),
+  );
 
   return {
     ThrowStatement(node: ThrowStatement) {
@@ -21,13 +26,40 @@ export function create(context: Rule.RuleContext): Rule.NodeListener {
         newExpr.callee.type === 'Identifier' &&
         newExpr.callee.name === 'Error'
       ) {
-        const suggestions = [
-          {
+        const suggestions = [];
+
+        const replaceErrorClassSuggestion = (suggested: string) => {
+          return {
+            desc: `Replace with \`${suggested}\``,
+            fix: (fixer: Rule.RuleFixer) => {
+              // no args
+              if (newExpr.arguments.length === 0) {
+                return fixer.replaceText(newExpr, `new ${suggested}('<insert error message>')`);
+              }
+              return [fixer.replaceText(newExpr.callee, suggested)];
+            },
+          };
+        };
+
+
+        // Adds ToolkitError and AuthenticationError suggestions for CLI files.
+        if (isToolkitFile) {
+          suggestions.push(
+            replaceErrorClassSuggestion('ToolkitError'),
+            replaceErrorClassSuggestion('AuthenticationError'),
+            replaceErrorClassSuggestion('AssemblyError'),
+            replaceErrorClassSuggestion('ContextProviderError'),
+          );
+        } else {
+          suggestions.push({
             desc: 'Replace with `ValidationError`',
             fix: (fixer: Rule.RuleFixer) => {
               // no existing args
               if (newExpr.arguments.length === 0) {
-                return fixer.replaceText(newExpr, "new ValidationError('<insert error message>', this)");
+                return fixer.replaceText(
+                  newExpr,
+                  "new ValidationError('<insert error message>', this)",
+                );
               }
 
               const fixes = [
@@ -36,64 +68,12 @@ export function create(context: Rule.RuleContext): Rule.NodeListener {
 
               const last = newExpr.arguments.at(-1)?.range;
               if (last) {
-                fixes.push(
-                  fixer.insertTextAfterRange(last, ', this'),
-                );
+                fixes.push(fixer.insertTextAfterRange(last, ', this'));
               }
 
               return fixes;
             },
-          },
-        ];
-
-        // Adds ToolkitError and AuthenticationError suggestions for CLI files.
-        if (isCliFile) {
-          suggestions.push(
-            {
-              desc: 'Replace with `ToolkitError`',
-              fix: (fixer: Rule.RuleFixer) => {
-                // no existing args
-                if (newExpr.arguments.length === 0) {
-                  return fixer.replaceText(newExpr, "new ToolkitError('<insert error message>')");
-                }
-
-                const fixes = [
-                  fixer.replaceText(newExpr.callee, 'ToolkitError'),
-                ];
-
-                const last = newExpr.arguments.at(-1)?.range;
-                if (last) {
-                  fixes.push(
-                    fixer.insertTextAfterRange(last, ', this'),
-                  );
-                }
-
-                return fixes;
-              },
-            },
-            {
-              desc: 'Replace with `AuthenticationError`',
-              fix: (fixer: Rule.RuleFixer) => {
-                // no existing args
-                if (newExpr.arguments.length === 0) {
-                  return fixer.replaceText(newExpr, "new AuthenticationError('<insert error message>')");
-                }
-
-                const fixes = [
-                  fixer.replaceText(newExpr.callee, 'AuthenticationError'),
-                ];
-
-                const last = newExpr.arguments.at(-1)?.range;
-                if (last) {
-                  fixes.push(
-                    fixer.insertTextAfterRange(last, ', this'),
-                  );
-                }
-
-                return fixes;
-              },
-            },
-          );
+          });
         }
 
         context.report({
