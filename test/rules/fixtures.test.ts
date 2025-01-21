@@ -52,26 +52,35 @@ fs.readdirSync(fixturesRoot).filter(f => f !== 'lib').filter(f => fs.lstatSync(p
         const expectedErrorFilepath = path.join(fixturesDir, `${path.basename(f, '.ts')}.error.txt`);
         const fix = fs.existsSync(expectedFixedFilePath);
         const suggestion = fs.existsSync(suggestedFixFilePath);
-        const checkErrors = fs.existsSync(expectedErrorFilepath);
-        if (fix && checkErrors && suggestion) {
+        const checkErrors = fs.existsSync(expectedErrorFilepath);checkErrors;
+
+        if (!checkErrors && !fix && !suggestion) {
+          fail('Expected fixed file, suggested file or expected error file not found.');
+        }
+
+        if (checkErrors && (fix || suggestion)) {
           fail(`Expected only a fixed file or an expected error message file. Multiple of ${expectedFixedFilePath}, ${suggestedFixFilePath} and ${expectedErrorFilepath} are present.`);
-        } else if (fix) {
+        }
+
+        if (fix) {
           const actualFile = await lintAndFix(originalFilePath, outputDir);
           const actual = await fs.readFile(actualFile, { encoding: 'utf8' });
           const expected = await fs.readFile(expectedFixedFilePath, { encoding: 'utf8' });
           if (actual !== expected) {
-            fail(`Linted file did not match expectations.\n--------- Expected ----------\n${expected}\n---------- Actual ----------\n${actual}`);
+            fail(`Fix: Linted file did not match expectations.\n--------- Expected ----------\n${expected}\n---------- Actual ----------\n${actual}`);
           }
-          return;
-        } else if (suggestion) {
+        }
+
+        if (suggestion) {
           const actualFile = await lintAndApplySuggestion(originalFilePath, outputDir);
           const actual = await fs.readFile(actualFile, { encoding: 'utf8' });
           const expected = await fs.readFile(suggestedFixFilePath, { encoding: 'utf8' });
           if (actual !== expected) {
-            fail(`Linted file did not match expectations.\n--------- Expected ----------\n${expected}\n---------- Actual ----------\n${actual}`);
+            fail(`Suggestion: Linted file did not match expectations.\n--------- Expected ----------\n${expected}\n---------- Actual ----------\n${actual}`);
           }
-          return;
-        } else if (checkErrors) {
+        }
+
+        if (checkErrors) {
           const actualErrorMessages = await lint(originalFilePath);
           const expectedErrorMessages = (await fs.readFile(expectedErrorFilepath, { encoding: 'utf8' })).split('\n');
           if (expectedErrorMessages.length !== actualErrorMessages?.length) {
@@ -82,9 +91,6 @@ fs.readdirSync(fixturesRoot).filter(f => f !== 'lib').filter(f => fs.lstatSync(p
               fail(`Error message not found in .error.txt file. Linted file: ${originalFilePath}. Actual message:\n${actualMessage.message}\nExpected messages:\n${expectedErrorMessages}`);
             }
           });
-          return;
-        } else {
-          fail('Expected fixed file or expected error file not found.');
         }
       });
     });

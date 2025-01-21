@@ -3,6 +3,7 @@ import type { NewExpression, ThrowStatement } from 'estree';
 
 export const meta = {
   hasSuggestions: true,
+  fixable: true,
 };
 
 // list of paths that should trigger the toolkit error suggestions
@@ -26,7 +27,7 @@ export function create(context: Rule.RuleContext): Rule.NodeListener {
         newExpr.callee.type === 'Identifier' &&
         newExpr.callee.name === 'Error'
       ) {
-        const suggestions = [];
+        const suggestions: Rule.SuggestionReportDescriptor[] = [];
 
         const replaceErrorClassSuggestion = (suggested: string) => {
           return {
@@ -36,7 +37,7 @@ export function create(context: Rule.RuleContext): Rule.NodeListener {
               if (newExpr.arguments.length === 0) {
                 return fixer.replaceText(newExpr, `new ${suggested}('<insert error message>')`);
               }
-              return [fixer.replaceText(newExpr.callee, suggested)];
+              return fixer.replaceText(newExpr.callee, suggested);
             },
           };
         };
@@ -80,6 +81,9 @@ export function create(context: Rule.RuleContext): Rule.NodeListener {
           node: newExpr,
           message: 'Expected a non-default error object to be thrown.',
           suggest: suggestions,
+          fix: (fixer: Rule.RuleFixer) => {
+            return suggestions.at(0)?.fix(fixer) ?? null;
+          },
         });
       }
     },
