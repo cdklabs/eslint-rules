@@ -35,7 +35,7 @@ export default [{
     sourceType: 'module',
 
     parserOptions: {
-      project: './tsconfig.eslint.json',
+      project: './tsconfig.dev.json',
     },
   },
 
@@ -111,7 +111,7 @@ export default [{
     '@typescript-eslint/no-require-imports': ['error'],
 
     'import/no-extraneous-dependencies': ['error', {
-      devDependencies: ['**/test/**', '**/build-tools/**', '.projenrc.ts', 'projenrc/**/*.ts'],
+      devDependencies: ['**/test/**', '**/build-tools/**', '.projenrc.ts', 'projenrc/**/*.ts', 'eslint.config.mjs'],
       optionalDependencies: false,
       peerDependencies: true,
     }],

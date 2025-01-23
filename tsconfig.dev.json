@@ -29,7 +29,8 @@
     "src/**/*.ts",
     "test/**/*.ts",
     ".projenrc.ts",
-    "projenrc/**/*.ts"
+    "projenrc/**/*.ts",
+    "eslint.config.mjs"
   ],
   "exclude": [
     "node_modules"
