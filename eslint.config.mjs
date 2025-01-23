@@ -1,162 +1,163 @@
-import { fixupConfigRules, fixupPluginRules } from "@eslint/compat";
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { fixupConfigRules, fixupPluginRules } from '@eslint/compat';
+import { FlatCompat } from '@eslint/eslintrc';
+import js from '@eslint/js';
+import stylistic from '@stylistic/eslint-plugin';
+import _import from 'eslint-plugin-import';
+import globals from 'globals';
 import tseslint from 'typescript-eslint';
-import _import from "eslint-plugin-import";
-import stylistic from "@stylistic/eslint-plugin";
-import globals from "globals";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
-import js from "@eslint/js";
-import { FlatCompat } from "@eslint/eslintrc";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const compat = new FlatCompat({
-    baseDirectory: __dirname,
-    recommendedConfig: js.configs.recommended,
-    allConfig: js.configs.all
+  baseDirectory: __dirname,
+  recommendedConfig: js.configs.recommended,
+  allConfig: js.configs.all,
 });
 
 export default [{
-    ignores: ["test/rules/fixtures/**/*.ts", "!**/.projenrc.ts", "!projenrc/**/*.ts"],
-},  ...tseslint.configs.recommended,
-    ...fixupConfigRules(compat.extends("plugin:import/typescript")), {
-    plugins: {
-        import: fixupPluginRules(_import),
-        "@stylistic": stylistic,
+  ignores: ['test/rules/fixtures/**/*', '!**/.projenrc.ts', '!projenrc/**/*'],
+}, ...tseslint.configs.recommended,
+...fixupConfigRules(compat.extends('plugin:import/typescript')), {
+  plugins: {
+    'import': fixupPluginRules(_import),
+    '@stylistic': stylistic,
+  },
+
+  languageOptions: {
+    globals: {
+      ...globals.jest,
+      ...globals.node,
     },
 
-    languageOptions: {
-        globals: {
-            ...globals.jest,
-            ...globals.node,
-        },
+    ecmaVersion: 2018,
+    sourceType: 'module',
 
-        ecmaVersion: 2018,
-        sourceType: "module",
+    parserOptions: {
+      project: './tsconfig.eslint.json',
+    },
+  },
 
-        parserOptions: {
-            project: "./tsconfig.dev.json",
-        },
+  settings: {
+    'import/parsers': {
+      '@typescript-eslint/parser': ['.ts', '.tsx'],
     },
 
-    settings: {
-        "import/parsers": {
-            "@typescript-eslint/parser": [".ts", ".tsx"],
-        },
+    'import/resolver': {
+      node: {},
 
-        "import/resolver": {
-            node: {},
-
-            typescript: {
-                project: "./tsconfig.dev.json",
-                alwaysTryTypes: true,
-            },
-        },
+      typescript: {
+        project: './tsconfig.dev.json',
+        alwaysTryTypes: true,
+      },
     },
+  },
 
-    rules: {
-        indent: ["off"],
-        "@stylistic/indent": ["error", 2],
+  rules: {
+    'indent': ['off'],
+    '@stylistic/indent': ['error', 2],
+    '@typescript-eslint/no-explicit-any': 'off',
 
-        quotes: ["error", "single", {
-            avoidEscape: true,
-        }],
+    'quotes': ['error', 'single', {
+      avoidEscape: true,
+    }],
 
-        "comma-dangle": ["error", "always-multiline"],
+    'comma-dangle': ['error', 'always-multiline'],
 
-        "comma-spacing": ["error", {
-            before: false,
-            after: true,
-        }],
+    'comma-spacing': ['error', {
+      before: false,
+      after: true,
+    }],
 
-        "no-multi-spaces": ["error", {
-            ignoreEOLComments: false,
-        }],
+    'no-multi-spaces': ['error', {
+      ignoreEOLComments: false,
+    }],
 
-        "array-bracket-spacing": ["error", "never"],
-        "array-bracket-newline": ["error", "consistent"],
-        "object-curly-spacing": ["error", "always"],
+    'array-bracket-spacing': ['error', 'never'],
+    'array-bracket-newline': ['error', 'consistent'],
+    'object-curly-spacing': ['error', 'always'],
 
-        "object-curly-newline": ["error", {
-            multiline: true,
-            consistent: true,
-        }],
+    'object-curly-newline': ['error', {
+      multiline: true,
+      consistent: true,
+    }],
 
-        "object-property-newline": ["error", {
-            allowAllPropertiesOnSameLine: true,
-        }],
+    'object-property-newline': ['error', {
+      allowAllPropertiesOnSameLine: true,
+    }],
 
-        "keyword-spacing": ["error"],
+    'keyword-spacing': ['error'],
 
-        "brace-style": ["error", "1tbs", {
-            allowSingleLine: true,
-        }],
+    'brace-style': ['error', '1tbs', {
+      allowSingleLine: true,
+    }],
 
-        "space-before-blocks": ["error"],
-        curly: ["error", "multi-line", "consistent"],
-        "@stylistic/member-delimiter-style": ["error"],
-        semi: ["error", "always"],
+    'space-before-blocks': ['error'],
+    'curly': ['error', 'multi-line', 'consistent'],
+    '@stylistic/member-delimiter-style': ['error'],
+    'semi': ['error', 'always'],
 
-        "max-len": ["error", {
-            code: 150,
-            ignoreUrls: true,
-            ignoreStrings: true,
-            ignoreTemplateLiterals: true,
-            ignoreComments: true,
-            ignoreRegExpLiterals: true,
-        }],
+    'max-len': ['error', {
+      code: 150,
+      ignoreUrls: true,
+      ignoreStrings: true,
+      ignoreTemplateLiterals: true,
+      ignoreComments: true,
+      ignoreRegExpLiterals: true,
+    }],
 
-        "quote-props": ["error", "consistent-as-needed"],
-        "@typescript-eslint/no-require-imports": ["error"],
+    'quote-props': ['error', 'consistent-as-needed'],
+    '@typescript-eslint/no-require-imports': ['error'],
 
-        "import/no-extraneous-dependencies": ["error", {
-            devDependencies: ["**/test/**", "**/build-tools/**", ".projenrc.ts", "projenrc/**/*.ts"],
-            optionalDependencies: false,
-            peerDependencies: true,
-        }],
+    'import/no-extraneous-dependencies': ['error', {
+      devDependencies: ['**/test/**', '**/build-tools/**', '.projenrc.ts', 'projenrc/**/*.ts'],
+      optionalDependencies: false,
+      peerDependencies: true,
+    }],
 
-        "import/no-unresolved": ["error"],
+    'import/no-unresolved': ['error'],
 
-        "import/order": ["warn", {
-            groups: ["builtin", "external"],
+    'import/order': ['warn', {
+      groups: ['builtin', 'external'],
 
-            alphabetize: {
-                order: "asc",
-                caseInsensitive: true,
-            },
-        }],
+      alphabetize: {
+        order: 'asc',
+        caseInsensitive: true,
+      },
+    }],
 
-        "import/no-duplicates": ["error"],
-        "no-shadow": ["off"],
-        "@typescript-eslint/no-shadow": ["error"],
-        "key-spacing": ["error"],
-        "no-multiple-empty-lines": ["error"],
-        "@typescript-eslint/no-floating-promises": ["error"],
-        "no-return-await": ["off"],
-        "@typescript-eslint/return-await": ["error"],
-        "no-trailing-spaces": ["error"],
-        "dot-notation": ["error"],
-        "no-bitwise": ["error"],
+    'import/no-duplicates': ['error'],
+    'no-shadow': ['off'],
+    '@typescript-eslint/no-shadow': ['error'],
+    'key-spacing': ['error'],
+    'no-multiple-empty-lines': ['error'],
+    '@typescript-eslint/no-floating-promises': ['error'],
+    'no-return-await': ['off'],
+    '@typescript-eslint/return-await': ['error'],
+    'no-trailing-spaces': ['error'],
+    'dot-notation': ['error'],
+    'no-bitwise': ['error'],
 
-        "@typescript-eslint/member-ordering": ["error", {
-            default: [
-                "public-static-field",
-                "public-static-method",
-                "protected-static-field",
-                "protected-static-method",
-                "private-static-field",
-                "private-static-method",
-                "field",
-                "constructor",
-                "method",
-            ],
-        }],
-    },
+    '@typescript-eslint/member-ordering': ['error', {
+      default: [
+        'public-static-field',
+        'public-static-method',
+        'protected-static-field',
+        'protected-static-method',
+        'private-static-field',
+        'private-static-method',
+        'field',
+        'constructor',
+        'method',
+      ],
+    }],
+  },
 }, {
-    files: ["**/.projenrc.ts"],
+  files: ['**/.projenrc.ts'],
 
-    rules: {
-        "@typescript-eslint/no-require-imports": "off",
-        "import/no-extraneous-dependencies": "off",
-    },
+  rules: {
+    '@typescript-eslint/no-require-imports': 'off',
+    'import/no-extraneous-dependencies': 'off',
+  },
 }];
