@@ -1,9 +1,8 @@
 import { fixupConfigRules, fixupPluginRules } from "@eslint/compat";
-import typescriptEslint from "@typescript-eslint/eslint-plugin";
+import tseslint from 'typescript-eslint';
 import _import from "eslint-plugin-import";
 import stylistic from "@stylistic/eslint-plugin";
 import globals from "globals";
-import tsParser from "@typescript-eslint/parser";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import js from "@eslint/js";
@@ -19,9 +18,9 @@ const compat = new FlatCompat({
 
 export default [{
     ignores: ["test/rules/fixtures/**/*.ts", "!**/.projenrc.ts", "!projenrc/**/*.ts"],
-}, ...fixupConfigRules(compat.extends("plugin:import/typescript")), {
+},  ...tseslint.configs.recommended,
+    ...fixupConfigRules(compat.extends("plugin:import/typescript")), {
     plugins: {
-        "@typescript-eslint": typescriptEslint,
         import: fixupPluginRules(_import),
         "@stylistic": stylistic,
     },
@@ -32,7 +31,6 @@ export default [{
             ...globals.node,
         },
 
-        parser: tsParser,
         ecmaVersion: 2018,
         sourceType: "module",
 

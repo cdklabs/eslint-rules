@@ -93,7 +93,7 @@ fs.readdirSync(fixturesRoot).filter(f => f !== 'lib').filter(f => fs.lstatSync(p
 
 async function lintAndFix(file: string, outputDir: string) {
   const newPath = path.join(outputDir, path.basename(file));
-  let result = await linter.lintFiles(file);
+  const result = await linter.lintFiles(file);
   const hasFixes = result.find(r => typeof(r.output) === 'string') !== undefined;
   if (hasFixes) {
     await ESLint.outputFixes(result.map(r => {
@@ -109,7 +109,7 @@ async function lintAndFix(file: string, outputDir: string) {
 
 async function lintAndApplySuggestion(file: string, outputDir: string) {
   const newPath = path.join(outputDir, path.basename(file));
-  let result = await linter.lintFiles(file);
+  const result = await linter.lintFiles(file);
   const hasSuggestions = result.find(r => r.messages.find(m => m.suggestions?.length)) !== undefined;
   if (hasSuggestions) {
     for (const r of result) {

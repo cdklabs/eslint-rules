@@ -2,7 +2,7 @@ import { Rule } from 'eslint';
 import type { Identifier, ImportSpecifier } from 'estree';
 import { isIdentifier } from '../private/type-checkers';
 
-let namespaceImports: {
+const namespaceImports: {
   [key: string]: string;
 } = {};
 
