@@ -18,6 +18,7 @@ export function create(context: Rule.RuleContext): Rule.NodeListener {
     // https://github.com/typescript-eslint/typescript-eslint/tree/1765a178e456b152bd48192eb5db7e8541e2adf2/packages/experimental-utils#note
     // Meanwhile, use a debugger to explore the AST node.
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     Program(_node: any) {
       if (!isTestFile(context.getFilename())) {
         return;

@@ -1,13 +1,20 @@
 {
   "dependencies": [
     {
-      "name": "@stylistic/eslint-plugin",
-      "version": "^2",
+      "name": "@eslint/compat",
       "type": "build"
     },
     {
-      "name": "@types/eslint",
-      "version": "^8",
+      "name": "@eslint/eslintrc",
+      "type": "build"
+    },
+    {
+      "name": "@eslint/js",
+      "type": "build"
+    },
+    {
+      "name": "@stylistic/eslint-plugin",
+      "version": "^2",
       "type": "build"
     },
     {
@@ -25,16 +32,6 @@
     {
       "name": "@types/node",
       "version": "^18",
-      "type": "build"
-    },
-    {
-      "name": "@typescript-eslint/eslint-plugin",
-      "version": "^8",
-      "type": "build"
-    },
-    {
-      "name": "@typescript-eslint/parser",
-      "version": "^8",
       "type": "build"
     },
     {
@@ -65,7 +62,11 @@
     },
     {
       "name": "eslint",
-      "version": "^8",
+      "version": "^9.18.0",
+      "type": "build"
+    },
+    {
+      "name": "globals",
       "type": "build"
     },
     {
@@ -94,12 +95,12 @@
       "type": "build"
     },
     {
-      "name": "@typescript-eslint/parser",
-      "type": "peer"
+      "name": "typescript-eslint",
+      "type": "build"
     },
     {
       "name": "eslint",
-      "version": ">=6 <9",
+      "version": ">=6 <10",
       "type": "peer"
     },
     {

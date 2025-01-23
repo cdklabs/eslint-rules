@@ -19,6 +19,11 @@ const project = new CdklabsTypeScriptProject({
     '@types/fs-extra',
     '@types/estree',
     '@typescript-eslint/rule-tester',
+    '@eslint/compat',
+    '@eslint/eslintrc',
+    '@eslint/js',
+    'globals',
+    'typescript-eslint',
   ],
   deps: [
     'fs-extra',
@@ -26,8 +31,7 @@ const project = new CdklabsTypeScriptProject({
     'typescript',
   ],
   peerDeps: [
-    '@typescript-eslint/parser',
-    'eslint@>=6 <9',
+    'eslint@>=6 <10',
   ],
 
   peerDependencyOptions: {
@@ -60,7 +64,9 @@ const project = new CdklabsTypeScriptProject({
 });
 
 // Declare different eslint deps than upstream projen
-project.addDevDeps('@types/eslint@^8', 'eslint@^8');
+project.addDevDeps('eslint@^9.18.0');
+project.deps.removeDependency('@typescript-eslint/eslint-plugin');
+project.deps.removeDependency('@typescript-eslint/parser');
 
 // Only ignore node_modules at the root, we also have one inside the
 // `test/fixtures` directory.

@@ -8,7 +8,7 @@
  * backtracking. We don't need it yet and it's a bit of work, so it's not in
  * here.)
  */
-export interface Match { }
+export type Match = Record<PropertyKey, unknown>;
 
 export type Pattern = (x: unknown, state: Match) => Match | undefined;
 

@@ -25,7 +25,6 @@
     "stripInternal": true,
     "target": "ES2020",
     "types": [
-      "eslint",
       "estree",
       "fs-extra",
       "jest",

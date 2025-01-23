@@ -35,7 +35,7 @@ export class ImportCache {
   }
 }
 
-function hashed(key: {}): string {
+function hashed(key: Record<string, unknown>): string {
   const hash = crypto.createHash('md5');
   hash.update(JSON.stringify(key));
   return hash.digest('hex');
