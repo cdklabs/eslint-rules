@@ -24,7 +24,7 @@ export function matchIdentifier(name: string) {
 /**
  * The type of additional node fields (except its type)
  */
-type NodeDetails<T extends estree.BaseNode> = {[k in Exclude<keyof T, 'type'>]?: unknown};
+type NodeDetails<T extends estree.BaseNode> = { [k in Exclude<keyof T, 'type'>]?: unknown };
 
 /**
  * Match an ESTree node of a given type with given subfields
