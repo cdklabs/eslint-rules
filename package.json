@@ -60,7 +60,7 @@
     "eslint": ">=6 <9"
   },
   "dependencies": {
-    "fs-extra": "^11.3.2"
+    "fs-extra": "^11.3.3"
   },
   "engines": {
     "node": ">= 18.12.0"
