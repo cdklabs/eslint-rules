@@ -10,7 +10,7 @@
     "lib": [
       "es2020"
     ],
-    "module": "CommonJS",
+    "module": "Node16",
     "noEmitOnError": false,
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
@@ -23,7 +23,10 @@
     "strictNullChecks": true,
     "strictPropertyInitialization": true,
     "stripInternal": true,
-    "target": "ES2020"
+    "target": "ES2020",
+    "moduleResolution": "node16",
+    "isolatedModules": true,
+    "noEmit": true
   },
   "include": [
     "src/**/*.ts",
@@ -32,6 +35,7 @@
     "projenrc/**/*.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "test/rules/fixtures/**/*.ts"
   ]
 }

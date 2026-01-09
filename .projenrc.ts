@@ -1,4 +1,5 @@
 import { CdklabsTypeScriptProject } from 'cdklabs-projen-project-types';
+import { TypeScriptModuleResolution } from 'projen/lib/javascript';
 
 const project = new CdklabsTypeScriptProject({
   private: false,
@@ -16,9 +17,11 @@ const project = new CdklabsTypeScriptProject({
   devDeps: [
     '@types/fs-extra',
     '@types/estree',
+    '@typescript-eslint/rule-tester',
   ],
   deps: [
     'fs-extra',
+    '@typescript-eslint/utils',
   ],
   peerDeps: [
     '@typescript-eslint/parser',
@@ -31,11 +34,19 @@ const project = new CdklabsTypeScriptProject({
 
   tsconfig: {
     compilerOptions: {
-      // moduleResolution: TypeScriptModuleResolution.NODE16,
+      module: 'Node16',
+      moduleResolution: TypeScriptModuleResolution.NODE16,
+      isolatedModules: true,
     },
     exclude: [
-      // 'test/rules/fixtures/**/*.ts',
+      'test/rules/fixtures/**/*.ts',
     ],
+  },
+
+  tsconfigDev: {
+    compilerOptions: {
+      noEmit: true,
+    },
   },
 
   releaseToNpm: true,
