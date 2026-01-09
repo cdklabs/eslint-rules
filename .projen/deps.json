@@ -38,6 +38,10 @@
       "type": "build"
     },
     {
+      "name": "@typescript-eslint/rule-tester",
+      "type": "build"
+    },
+    {
       "name": "cdklabs-projen-project-types",
       "type": "build"
     },
@@ -97,6 +101,10 @@
       "name": "eslint",
       "version": ">=6 <9",
       "type": "peer"
+    },
+    {
+      "name": "@typescript-eslint/utils",
+      "type": "runtime"
     },
     {
       "name": "fs-extra",

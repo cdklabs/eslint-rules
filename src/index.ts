@@ -13,4 +13,5 @@ export const rules = {
   'no-throw-default-error': require('./rules/no-throw-default-error'),
   'promiseall-no-unbounded-parallelism': require('./rules/promiseall-no-unbounded-parallelism'),
   'no-this-in-static': require('./rules/no-this-in-static'),
+  'no-evaluating-typeguard': require('./rules/no-evaluating-typeguard'),
 };

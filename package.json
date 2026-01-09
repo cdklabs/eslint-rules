@@ -42,6 +42,7 @@
     "@types/node": "^18",
     "@typescript-eslint/eslint-plugin": "^8",
     "@typescript-eslint/parser": "^8",
+    "@typescript-eslint/rule-tester": "^8.52.0",
     "cdklabs-projen-project-types": "^0.3.7",
     "commit-and-tag-version": "^12",
     "constructs": "^10.0.0",
@@ -60,6 +61,7 @@
     "eslint": ">=6 <9"
   },
   "dependencies": {
+    "@typescript-eslint/utils": "^8.52.0",
     "fs-extra": "^11.3.3"
   },
   "engines": {
