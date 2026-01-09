@@ -25,8 +25,7 @@
     "stripInternal": true,
     "target": "ES2020",
     "moduleResolution": "node16",
-    "isolatedModules": true,
-    "noEmit": true
+    "isolatedModules": true
   },
   "include": [
     "src/**/*.ts",
@@ -35,7 +34,6 @@
     "projenrc/**/*.ts"
   ],
   "exclude": [
-    "node_modules",
-    "test/rules/fixtures/**/*.ts"
+    "node_modules"
   ]
 }

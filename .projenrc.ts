@@ -39,14 +39,9 @@ const project = new CdklabsTypeScriptProject({
       isolatedModules: true,
     },
     exclude: [
-      'test/rules/fixtures/**/*.ts',
+      // Cannot exclude this, since we use the root tsconfig.dev.json to run eslint on thes efiles.
+      // 'test/rules/fixtures/**/*.ts',
     ],
-  },
-
-  tsconfigDev: {
-    compilerOptions: {
-      noEmit: true,
-    },
   },
 
   releaseToNpm: true,
