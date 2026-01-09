@@ -7,7 +7,7 @@ import NodeParentExtension = Rule.NodeParentExtension;
 
 export const meta: Rule.RuleMetaData = {
   messages: {
-    avoidAccess: "{{ memberAccess }}: this will evaluate '{{ prop }}', which might throw if it's a getter. Prefer using `'{{ prop }}' in {{ obj }}` (don't forget to check for object-ness of {{ obj }} if necessary!)",
+    avoidAccess: "{{ memberAccess }}: this will evaluate a property, which might throw if it's a getter. Prefer using `'{{ prop }}' in {{ obj }}` (don't forget to check for object-ness of {{ obj }} if necessary!)",
   },
 };
 
@@ -75,7 +75,7 @@ export function create(context: Rule.RuleContext): Rule.RuleListener {
 
     // If the output type doesn't have a symbol, it's an anonymous type (`return { x: 3, y: 42 };`)
     // Which is most likely not a coercion function.
-    if (returnType.getSymbol() == null) {
+    if (returnType.getSymbol() == null || returnType.getSymbol()?.escapedName === '__object') {
       return false;
     }
 
@@ -83,7 +83,6 @@ export function create(context: Rule.RuleContext): Rule.RuleListener {
     if (node.parent.type === AST_NODE_TYPES.MethodDefinition && !node.parent.static) {
       return false;
     }
-
 
     // If the return type is assignable to the input type, then this looks like
     // a downcast which probably means it's a type coercion function.
