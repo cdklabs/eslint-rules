@@ -62,7 +62,8 @@
   },
   "dependencies": {
     "@typescript-eslint/utils": "^8.52.0",
-    "fs-extra": "^11.3.3"
+    "fs-extra": "^11.3.3",
+    "typescript": "^5.9.3"
   },
   "engines": {
     "node": ">= 18.12.0"

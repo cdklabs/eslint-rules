@@ -22,6 +22,7 @@ const project = new CdklabsTypeScriptProject({
   deps: [
     'fs-extra',
     '@typescript-eslint/utils',
+    'typescript',
   ],
   peerDeps: [
     '@typescript-eslint/parser',
