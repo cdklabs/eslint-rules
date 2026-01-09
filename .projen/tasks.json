@@ -234,13 +234,13 @@
       },
       "steps": [
         {
-          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --no-deprecated --dep=prod --filter=@typescript-eslint/utils,fs-extra"
+          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --no-deprecated --dep=prod --filter=@typescript-eslint/utils,fs-extra,typescript"
         },
         {
           "exec": "yarn install --check-files"
         },
         {
-          "exec": "yarn upgrade @typescript-eslint/utils fs-extra"
+          "exec": "yarn upgrade @typescript-eslint/utils fs-extra typescript"
         },
         {
           "exec": "npx projen"
