@@ -7,7 +7,7 @@ import NodeParentExtension = Rule.NodeParentExtension;
 
 export const meta: Rule.RuleMetaData = {
   messages: {
-    avoidAccess: "{{ memberAccess }}: this will evaluate a propery, which might throw if it's a getter. Prefer using `'{{ prop }}' in {{ obj }}` (don't forget to check for object-ness of {{ obj }} if necessary!)",
+    avoidAccess: "{{ memberAccess }}: this will evaluate a property, which might throw if it's a getter. Prefer using `'{{ prop }}' in {{ obj }}` (don't forget to check for object-ness of {{ obj }} if necessary!)",
   },
 };
 
