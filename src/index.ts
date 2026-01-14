@@ -14,4 +14,5 @@ export const rules = {
   'promiseall-no-unbounded-parallelism': require('./rules/promiseall-no-unbounded-parallelism'),
   'no-this-in-static': require('./rules/no-this-in-static'),
   'no-evaluating-typeguard': require('./rules/no-evaluating-typeguard'),
+  'no-unconditional-token-allocation': require('./rules/no-unconditional-token-allocation'),
 };
