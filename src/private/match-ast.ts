@@ -43,10 +43,11 @@ export function matchObject(fields: Record<string, unknown>): Pattern {
       return undefined;
     }
     for (const [field, pattern] of Object.entries(patFields)) {
-      state = pattern((value as any)[field], state);
-      if (!state) {
-        break;
+      const result = pattern((value as any)[field], state);
+      if (!result) {
+        return undefined;
       }
+      state = result;
     }
     return state;
   };
@@ -58,8 +59,8 @@ export function matchObject(fields: Record<string, unknown>): Pattern {
  * If it is already a Pattern (function0, return. Otherwise,
  * make a Pattern that matches a literal value.
  */
-export function makePattern(x: unknown) {
-  return typeof x === 'function' ? x : matchLiteral(x);
+export function makePattern(x: unknown): Pattern {
+  return typeof x === 'function' ? x as Pattern : matchLiteral(x);
 }
 
 /**
@@ -72,13 +73,11 @@ export function makePattern(x: unknown) {
  * not lie about the type it has captured later on.
  */
 export function variable<T>(inner?: Pattern, tester?: (x: any) => x is T): Variable<T> {
-  if (!inner) {
-    inner = matchAny;
-  }
+  const resolvedInner = inner ?? matchAny();
 
   const sym = Symbol();
   const ret = function variable(x: unknown, state: Match) {
-    const newState = inner(x, state);
+    const newState = resolvedInner(x, state);
     if (!newState) {
       return undefined;
     }

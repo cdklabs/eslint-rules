@@ -1,4 +1,5 @@
 import * as path from 'path';
+import * as tsParser from '@typescript-eslint/parser';
 import { ESLint } from 'eslint';
 import * as fs from 'fs-extra';
 import * as localPlugin from '../../src';
@@ -27,14 +28,22 @@ fs.readdirSync(fixturesRoot).filter(f => f !== 'lib').filter(f => fs.lstatSync(p
     }
 
     beforeAll(() => {
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
+      const fixtureConfig = require(path.join(fixturesDir, 'eslintrc.js'));
       linter = new ESLint({
-        baseConfig: {
-          parser: '@typescript-eslint/parser',
-        },
-        overrideConfigFile: path.join(fixturesDir, 'eslintrc.js'),
-        plugins: {
-          local: localPlugin,
-        },
+        overrideConfigFile: true,
+        overrideConfig: [
+          {
+            files: ['**/*.ts'],
+            languageOptions: {
+              parser: tsParser,
+            },
+            plugins: {
+              local: localPlugin,
+            },
+            rules: fixtureConfig.rules,
+          },
+        ],
         fix: true,
         ignore: false,
       });

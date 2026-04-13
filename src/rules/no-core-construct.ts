@@ -7,7 +7,7 @@ let importsFixed: boolean;
 const BANNED_TYPES = ['IConstruct', 'Construct'];
 
 export const meta = {
-  fixable: true,
+  fixable: 'code' as const,
 };
 
 export function create(context: Rule.RuleContext): Rule.NodeListener {

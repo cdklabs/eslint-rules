@@ -290,7 +290,7 @@
           "exec": "npm install"
         },
         {
-          "exec": "npm update @eslint/compat @eslint/eslintrc @eslint/js @stylistic/eslint-plugin @types/estree @types/fs-extra @types/jest @types/node @typescript-eslint/rule-tester commit-and-tag-version constructs eslint-import-resolver-typescript eslint-plugin-import eslint globals jest jest-junit ts-jest ts-node typescript typescript-eslint"
+          "exec": "npm update @eslint/compat @eslint/eslintrc @eslint/js @stylistic/eslint-plugin @types/estree @types/fs-extra @types/jest @types/node @typescript-eslint/parser @typescript-eslint/rule-tester commit-and-tag-version constructs eslint-import-resolver-typescript eslint-plugin-import eslint globals jest jest-junit ts-jest ts-node typescript typescript-eslint"
         },
         {
           "exec": "npx projen"

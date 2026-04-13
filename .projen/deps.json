@@ -35,6 +35,11 @@
       "type": "build"
     },
     {
+      "name": "@typescript-eslint/parser",
+      "version": "^8",
+      "type": "build"
+    },
+    {
       "name": "@typescript-eslint/rule-tester",
       "type": "build"
     },
@@ -100,7 +105,7 @@
     },
     {
       "name": "eslint",
-      "version": ">=6 <10",
+      "version": ">=9 <11",
       "type": "peer"
     },
     {
