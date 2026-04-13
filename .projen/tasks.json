@@ -234,7 +234,7 @@
       },
       "steps": [
         {
-          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --no-deprecated --dep=prod --filter=@typescript-eslint/utils,fs-extra,typescript"
+          "exec": "npx npm-check-updates@20 --upgrade --target=minor --peer --no-deprecated --dep=prod --filter=@typescript-eslint/utils,fs-extra,typescript"
         },
         {
           "exec": "yarn install --check-files"
@@ -258,7 +258,7 @@
       },
       "steps": [
         {
-          "exec": "npx npm-check-updates@16 --upgrade --target=latest --peer --no-deprecated --dep=dev,peer,prod,optional --filter=cdklabs-projen-project-types,projen"
+          "exec": "npx npm-check-updates@20 --upgrade --target=latest --peer --no-deprecated --dep=dev,peer,prod,optional --filter=cdklabs-projen-project-types,projen"
         },
         {
           "exec": "yarn install --check-files"
@@ -282,7 +282,7 @@
       },
       "steps": [
         {
-          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --no-deprecated --dep=dev --filter=@types/estree,@types/fs-extra,@types/jest,@typescript-eslint/rule-tester,eslint-import-resolver-typescript,eslint-plugin-import,jest,ts-jest,ts-node,typescript"
+          "exec": "npx npm-check-updates@20 --upgrade --target=minor --peer --no-deprecated --dep=dev --filter=@types/estree,@types/fs-extra,@types/jest,@typescript-eslint/rule-tester,eslint-import-resolver-typescript,eslint-plugin-import,jest,ts-jest,ts-node,typescript"
         },
         {
           "exec": "yarn install --check-files"

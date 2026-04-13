@@ -24,6 +24,13 @@
     "strictPropertyInitialization": true,
     "stripInternal": true,
     "target": "ES2020",
+    "types": [
+      "eslint",
+      "estree",
+      "fs-extra",
+      "jest",
+      "node"
+    ],
     "moduleResolution": "node16",
     "isolatedModules": true
   },
