@@ -10,7 +10,7 @@ import type { ClassDeclaration, FunctionDeclaration, FunctionExpression, Super, 
 import NodeParentExtension = Rule.NodeParentExtension;
 
 export const meta = {
-  fixable: true,
+  fixable: 'code' as const,
 };
 
 export function create(context: Rule.RuleContext): Rule.NodeListener {
@@ -93,7 +93,7 @@ export function create(context: Rule.RuleContext): Rule.NodeListener {
   }
 
   function findClassDeclaration(node: NodeParentExtension): ClassDeclaration | null {
-    let parent = node.parent;
+    let parent: Rule.Node | null = node.parent;
 
     while (parent != null) {
       if (parent.type === 'ClassDeclaration') {
@@ -107,7 +107,7 @@ export function create(context: Rule.RuleContext): Rule.NodeListener {
   }
 
   function findMemberName(node: NodeParentExtension): string | null {
-    let parent = node.parent;
+    let parent: Rule.Node | null = node.parent;
 
     while (parent != null) {
       if (

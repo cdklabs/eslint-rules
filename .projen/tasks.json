@@ -284,13 +284,13 @@
       },
       "steps": [
         {
-          "exec": "npx npm-check-updates@20 --upgrade --target=minor --cooldown=3 --peer --no-deprecated --dep=dev --filter=@types/estree,@types/fs-extra,@types/jest,@typescript-eslint/rule-tester,eslint-import-resolver-typescript,eslint-plugin-import,jest,ts-jest,ts-node,typescript"
+          "exec": "npx npm-check-updates@20 --upgrade --target=minor --cooldown=3 --peer --no-deprecated --dep=dev --filter=@eslint/compat,@eslint/eslintrc,@eslint/js,@types/estree,@types/fs-extra,@types/jest,@typescript-eslint/rule-tester,eslint-import-resolver-typescript,eslint-plugin-import,globals,jest,ts-jest,ts-node,typescript,typescript-eslint"
         },
         {
           "exec": "npm install"
         },
         {
-          "exec": "npm update @stylistic/eslint-plugin @types/eslint @types/estree @types/fs-extra @types/jest @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser @typescript-eslint/rule-tester commit-and-tag-version constructs eslint-import-resolver-typescript eslint-plugin-import eslint jest jest-junit ts-jest ts-node typescript"
+          "exec": "npm update @eslint/compat @eslint/eslintrc @eslint/js @stylistic/eslint-plugin @types/estree @types/fs-extra @types/jest @types/node @typescript-eslint/parser @typescript-eslint/rule-tester commit-and-tag-version constructs eslint-import-resolver-typescript eslint-plugin-import eslint globals jest jest-junit ts-jest ts-node typescript typescript-eslint"
         },
         {
           "exec": "npx projen"
