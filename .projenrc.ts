@@ -1,5 +1,5 @@
 import { CdklabsTypeScriptProject } from 'cdklabs-projen-project-types';
-import { TypeScriptModuleResolution } from 'projen/lib/javascript';
+import { javascript } from 'projen';
 
 const project = new CdklabsTypeScriptProject({
   private: false,
@@ -14,6 +14,7 @@ const project = new CdklabsTypeScriptProject({
   defaultReleaseBranch: 'main',
   enablePRAutoMerge: true,
 
+  packageManager: javascript.NodePackageManager.NPM,
   devDeps: [
     '@types/fs-extra',
     '@types/estree',
@@ -36,7 +37,7 @@ const project = new CdklabsTypeScriptProject({
   tsconfig: {
     compilerOptions: {
       module: 'Node16',
-      moduleResolution: TypeScriptModuleResolution.NODE16,
+      moduleResolution: javascript.TypeScriptModuleResolution.NODE16,
       isolatedModules: true,
     },
     exclude: [
