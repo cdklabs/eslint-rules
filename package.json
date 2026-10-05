@@ -63,7 +63,7 @@
     "eslint": ">=9 <11"
   },
   "dependencies": {
-    "@typescript-eslint/utils": "^8.70.1",
+    "@typescript-eslint/utils": "^8.71.0",
     "fs-extra": "^11.4.1",
     "typescript": "^5.9.3"
   },
